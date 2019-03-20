@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="AWS CLI 설치하기AWS S3에 8GB 정도의 파일을 업로드 할 일이 생겨서 찾다보니 다른 방법 보다 AWS CLI의 sync 명령을 사용하는 것이 좋다는 판단에 AWS CLI 를 설치해서 사용해 보기로 했다.
+OS별 설치 방법Amazon Linux를 설치하면 기본">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="freegians">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="AWS CLI 설치하기">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="freegians&#39;s life">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>AWS CLI 설치하기 - freegians&#39;s life</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="//unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-31506558-6', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+</head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="freegians's life">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="freegians's life">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/" title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/archives" title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/tags" title="Tags">
+                    Tags
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/categories" title="Categories">
+                    Categories
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/about.html" title="About">
+                    About
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" href="/contact.html" title="Contact">
+                    Contact
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">AWS CLI 설치하기</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2019-02-19</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/programing/">#programing</a> <a class="fw3 ph1 dib" href="/tags/aws/">#aws</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <h1 id="AWS-CLI-설치하기"><a href="#AWS-CLI-설치하기" class="headerlink" title="AWS CLI 설치하기"></a>AWS CLI 설치하기</h1><p>AWS S3에 8GB 정도의 파일을 업로드 할 일이 생겨서 찾다보니 다른 방법 보다 AWS CLI의 sync 명령을 사용하는 것이 좋다는 판단에 AWS CLI 를 설치해서 사용해 보기로 했다.</p>
+<h2 id="OS별-설치-방법"><a href="#OS별-설치-방법" class="headerlink" title="OS별 설치 방법"></a>OS별 설치 방법</h2><p>Amazon Linux를 설치하면 기본적으로 AWS CLI가 설치되어 있다.</p>
+<ul>
+<li><p>Windows</p>
+<p>  <a href="https://s3.amazonaws.com/aws-cli/AWSCLI64.msi" target="_blank" rel="noopener">64비트</a> 또는 <a href="https://s3.amazonaws.com/aws-cli/AWSCLI32.msi" target="_blank" rel="noopener">32비트</a> Windows 설치 프로그램을 다운로드해서 실행한다.</p>
+</li>
+<li><p>Mac or Linux</p>
+<p>  <a href="http://www.python.org/download/" target="_blank" rel="noopener">Python</a> 2.6.5 이상이 필요하고 <a href="http://www.pip-installer.org/en/latest/" target="_blank" rel="noopener">pip</a>를 사용하여 설치한다.</p>
+<p>  난 그냥 brew를 이용해서 설치했다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install awscli</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="기본-설정"><a href="#기본-설정" class="headerlink" title="기본 설정"></a>기본 설정</h2><p>aws configure 명령을 통해서 기본 액세스키, 시크릿키, 리전을 설정한다.</p>
+<ul>
+<li>AWS Access Key ID [None]: 액세스 키를 입력한다.</li>
+<li>AWS Secret Access Key [None]: 시크릿 키를 입력한다.</li>
+<li>Default Region name [None]: Seoul 리전을 뜻하는 ap-northeast-2를 입력한다.</li>
+<li>Default output format [None]: 비워둔다.(json, text, table을 사용할 수 있다.)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ aws configure</span><br><span class="line">AWS Access Key ID [None]: </span><br><span class="line">AWS Secret Access Key [None]: </span><br><span class="line">Default region name [None]: ap-northeast-1</span><br><span class="line">Default output format [None]:</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="기본-사용법"><a href="#기본-사용법" class="headerlink" title="기본 사용법"></a>기본 사용법</h2><ul>
+<li>AWS CLI 기본 사용방법은 <a href="https://aws.amazon.com/ko/cli/를" target="_blank" rel="noopener">https://aws.amazon.com/ko/cli/를</a> 참고.</li>
+<li>AWS CLI 명령 참조는 <a href="http://docs.aws.amazon.com/cli/latest/reference/#available-services를" target="_blank" rel="noopener">http://docs.aws.amazon.com/cli/latest/reference/#available-services를</a> 참고</li>
+</ul>
+<p>우리는 S3에 파일을 업로드 해야 하기 때문에 관련 사용 방법은 <a href="http://docs.aws.amazon.com/cli/latest/reference/s3/를" target="_blank" rel="noopener">http://docs.aws.amazon.com/cli/latest/reference/s3/를</a> 참고.</p>
+<h2 id="aws-s3-sync-명령을-통해-파일을-업로드-하는-방법"><a href="#aws-s3-sync-명령을-통해-파일을-업로드-하는-방법" class="headerlink" title="aws s3 sync 명령을 통해 파일을 업로드 하는 방법"></a>aws s3 sync 명령을 통해 파일을 업로드 하는 방법</h2><ul>
+<li>aws s3 sync 명령 사용방법은 <a href="http://docs.aws.amazon.com/cli/latest/reference/s3/sync.html를" target="_blank" rel="noopener">http://docs.aws.amazon.com/cli/latest/reference/s3/sync.html를</a> 참고</li>
+<li>기본 명령 형식은 아래와 같다.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ aws s3 sync ./ s3://mybucket</span><br><span class="line">upload: test.txt to s3://mybucket/test.txt</span><br><span class="line">upload: test2.txt to s3://mybucket/test2.txt</span><br><span class="line">or</span><br><span class="line">$ aws s3 sync s3://mybucket ./</span><br><span class="line">download: s3://mybucket/test.txt to test.txt</span><br><span class="line">download: s3://mybucket/test2.txt to test2.txt</span><br><span class="line">or</span><br><span class="line">$ aws s3 sync s3://mybucket s3://mybucket2</span><br><span class="line">copy: s3://mybucket/test.txt to s3://mybucket2/test.txt</span><br><span class="line">copy: s3://mybucket/test2.txt to s3://mybucket2/test2.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>위 방법을 사용하여 아래와 같이 파일을 업로드 했다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ aws s3 sync Download/images s3://freegians/images</span><br></pre></td></tr></table></figure></p>
+<p>결과는 실패</p>
+<p>아시아 태평양(뭄바이), 아시아 태평양(서울), EU(프랑크푸르트) 및 중국(베이징) 리전에서 Amazon S3는 signature version 4만 지원하고 나머지 모든 리전에서는 Amazon S3에서 signature version 4와 2를 모두 지원한다고 한다.<br>설치된 AWS CLI sdk signature version이 2 였던 것이다.</p>
+<p>아래 명령을 통해 signature version 4로 변경해보자.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ aws configure <span class="built_in">set</span> default.s3.signature_version s3v4</span><br></pre></td></tr></table></figure></p>
+<p>다시 aws s3 sync 명령 실행하니 성공</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/programing/">#programing</a> <a class="fw3 ph1 dib" href="/tags/aws/">#aws</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+<div id="disqus_thread" class="mt5">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="http://tachyons.io/img/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="freegians">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            My name is Freegians and this is my blog.<br>I am a full stack software engineer with a strong back-end focus.<br> I currently live and work in Seoul, hit me up if you are in the region.
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5">
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>Categories</h3>
+    
+        <p>
+            <a href="/categories/Programming-Cloud/">Programming - Cloud</a>
+        </p>
+    
+</div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5">
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2019/03/20/redis-install-in-aws-ec2-/">AWS EC2에 Redis CLI 설치 하기</a>
+        </p>
+    
+        <p>
+            <a href="/2019/02/19/aws-cli-install/">AWS CLI 설치하기</a>
+        </p>
+    
+        <p>
+            <a href="/2015/12/09/mammitis/">유선염</a>
+        </p>
+    
+        <p>
+            <a href="/2015/12/03/first-snow/">첫눈</a>
+        </p>
+    
+        <p>
+            <a href="/2015/12/01/hello-world/">Hello World</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://twitter.com/?lang=en" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.facebook.com/" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://dribbble.com/" target="_blank">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/klugjo/hexo-theme-anodyne" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://plus.google.com/" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.behance.net/" target="_blank">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://500px.com/" target="_blank">
+                            <i class="fa fa-500px"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:test@example.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @blog.freegians.com. All right reserved | Design & Hexo <a class="link dim white" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'freegians-github-io';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>
